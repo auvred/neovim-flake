@@ -1,5 +1,3 @@
-vim.g.mapleader = " "
-
 for _, plugin_config_path in
   ipairs(vim.api.nvim_get_runtime_file("lua/auvred/plugins/*.lua", true))
 do
