@@ -1,0 +1,19 @@
+diff --git a/after/plugin/cmp_nvim_lsp.lua b/after/plugin/cmp_nvim_lsp.lua
+deleted file mode 100644
+index 6d566fa..0000000
+--- a/after/plugin/cmp_nvim_lsp.lua
++++ /dev/null
+@@ -1 +0,0 @@
+-require('cmp_nvim_lsp').setup()
+diff --git a/plugin/cmp_nvim_lsp.lua b/plugin/cmp_nvim_lsp.lua
+new file mode 100644
+index 0000000..ca073fb
+--- /dev/null
++++ b/plugin/cmp_nvim_lsp.lua
+@@ -0,0 +1,6 @@
++if vim.g.loaded_cmp_nvim_lsp then
++  return
++end
++vim.g.loaded_cmp_nvim_lsp = true
++
++require("cmp_nvim_lsp").setup()

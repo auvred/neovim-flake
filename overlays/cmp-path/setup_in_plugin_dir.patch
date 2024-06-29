@@ -1,0 +1,19 @@
+diff --git a/after/plugin/cmp_path.lua b/after/plugin/cmp_path.lua
+deleted file mode 100644
+index 1d5de27..0000000
+--- a/after/plugin/cmp_path.lua
++++ /dev/null
+@@ -1 +0,0 @@
+-require('cmp').register_source('path', require('cmp_path').new())
+diff --git a/plugin/cmp_path.lua b/plugin/cmp_path.lua
+new file mode 100644
+index 0000000..3dae7f2
+--- /dev/null
++++ b/plugin/cmp_path.lua
+@@ -0,0 +1,6 @@
++if vim.g.loaded_cmp_path then
++  return
++end
++vim.g.loaded_cmp_path = true
++
++require('cmp').register_source('path', require('cmp_path').new())

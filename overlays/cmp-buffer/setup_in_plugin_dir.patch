@@ -1,0 +1,19 @@
+diff --git a/after/plugin/cmp_buffer.lua b/after/plugin/cmp_buffer.lua
+deleted file mode 100644
+index a66afbd..0000000
+--- a/after/plugin/cmp_buffer.lua
++++ /dev/null
+@@ -1 +0,0 @@
+-require('cmp').register_source('buffer', require('cmp_buffer'))
+diff --git a/plugin/cmp_buffer.lua b/plugin/cmp_buffer.lua
+new file mode 100644
+index 0000000..921ae0f
+--- /dev/null
++++ b/plugin/cmp_buffer.lua
+@@ -0,0 +1,6 @@
++if vim.g.loaded_cmp_buffer then
++  return
++end
++vim.g.loaded_cmp_buffer = true
++
++require('cmp').register_source('buffer', require('cmp_buffer'))
