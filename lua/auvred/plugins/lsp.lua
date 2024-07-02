@@ -49,11 +49,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts)
     vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
 
-    vim.keymap.set("n", "]g", function()
+    vim.keymap.set("n", "<leader>dn", function()
       vim.diagnostic.jump({ count = 1 })
     end, opts)
-    vim.keymap.set("n", "[g", function()
+    vim.keymap.set("n", "<leader>dp", function()
       vim.diagnostic.jump({ count = -1 })
     end, opts)
+    vim.keymap.set("n", "<leader>do", vim.diagnostic.open_float, opts)
   end,
 })
