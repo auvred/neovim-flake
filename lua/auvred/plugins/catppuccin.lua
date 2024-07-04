@@ -11,6 +11,7 @@ require("catppuccin").setup({
     local U = require("catppuccin.utils.colors")
     return {
       Pmenu = { bg = U.darken(colors.surface0, 0.5, colors.crust) },
+      PmenuSel = { fg = colors.crust },
       NormalFloat = { bg = U.darken(colors.surface0, 0.5, colors.crust) },
     }
   end,
