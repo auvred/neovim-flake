@@ -55,7 +55,6 @@
             nvim-treesitter
             nvim-treesitter-context
             telescope-nvim
-            better-escape-nvim
             comment-nvim
             nvim-lspconfig
             (nvim-cmp.overrideAttrs {dependencies = [cmp-nvim-lsp cmp-buffer cmp-path];})
