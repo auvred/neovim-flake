@@ -41,6 +41,7 @@
             typescript_language_server_path = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server",
             vue_typescript_plugin_path = "${pkgs.vue-language-server}/lib/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
             vue_language_server_path = "${pkgs.vue-language-server}/bin/vue-language-server",
+            clangd_server_path = "${pkgs.clang-tools}/bin/clangd",
           }
           return M
           EOF
@@ -62,10 +63,12 @@
             harpoon2
           ])
           ++ builtins.filter pkgs.lib.isDerivation (builtins.attrValues pkgs.vimPlugins.nvim-treesitter-parsers));
-      initLua = pkgs.writeTextDir "auvred-nvim-config-init.lua" ''
-        ${builtins.concatStringsSep "\n" (builtins.map (p: "vim.opt.rtp:append('${p}')") runtimepath)}
-        require('auvred')
-      '';
+      initLua = pkgs.writeTextDir "auvred-nvim-config-init.lua" (
+        builtins.concatStringsSep "\n" (builtins.map (p: "vim.opt.rtp:append('${p}')") runtimepath)
+        + ''
+          require('auvred')
+        ''
+      );
       makeWrapperArgs = [
         "${neovim-unwrapped}/bin/nvim"
         "${placeholder "out"}/bin/nvim"

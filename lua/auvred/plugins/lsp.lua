@@ -34,6 +34,10 @@ lspconfig.volar.setup({
   capabilities = capabilities,
 })
 
+lspconfig.clangd.setup({
+  cmd = { nix_generated.clangd_server_path },
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local opts = { buffer = ev.buf }
