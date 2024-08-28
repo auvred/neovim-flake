@@ -10,6 +10,9 @@ lspconfig.nixd.setup({
 
 lspconfig.tsserver.setup({
   cmd = { nix_generated.typescript_language_server_path, "--stdio" },
+  on_attach = function(client, bufnr)
+    require("twoslash-queries").attach(client, bufnr)
+  end,
   capabilities = capabilities,
   init_options = {
     plugins = {

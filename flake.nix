@@ -3,12 +3,18 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    twoslash-queries-nvim-source = {
+      url = "github:marilari88/twoslash-queries.nvim";
+      flake = false;
+    };
   };
   outputs = {
     self,
     nixpkgs,
     neovim-nightly-overlay,
     treefmt-nix,
+    twoslash-queries-nvim-source,
   }: let
     system = "x86_64-linux";
     pkgs = import nixpkgs {
@@ -47,10 +53,17 @@
           EOF
         '';
       };
+      twoslash-queries-nvim = pkgs.vimUtils.buildVimPlugin {
+        name = "twoslash-queries-nvim";
+        src = twoslash-queries-nvim-source;
+      };
       runtimepath = let
         flattenDeps = plugins: plugins ++ (pkgs.lib.unique (builtins.concatLists (builtins.map (plugin: flattenDeps (plugin.dependencies or [])) plugins)));
       in
-        flattenDeps ([auvred-config]
+        flattenDeps ([
+            auvred-config
+            twoslash-queries-nvim
+          ]
           ++ (with pkgs.vimPlugins; [
             catppuccin-nvim
             nvim-treesitter

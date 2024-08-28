@@ -236,7 +236,8 @@
       "inputs": {
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixpkgs": "nixpkgs_2",
-        "treefmt-nix": "treefmt-nix"
+        "treefmt-nix": "treefmt-nix",
+        "twoslash-queries-nvim-source": "twoslash-queries-nvim-source"
       }
     },
     "treefmt-nix": {
@@ -254,6 +255,22 @@
       "original": {
         "owner": "numtide",
         "repo": "treefmt-nix",
+        "type": "github"
+      }
+    },
+    "twoslash-queries-nvim-source": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1719351982,
+        "narHash": "sha256-YGFRbceYFswAbiOrMCx8ynEkQ45MkSOm0LHccYXyuXM=",
+        "owner": "marilari88",
+        "repo": "twoslash-queries.nvim",
+        "rev": "b92622c7b71eceefabd02eef24236041069904b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "marilari88",
+        "repo": "twoslash-queries.nvim",
         "type": "github"
       }
     }
