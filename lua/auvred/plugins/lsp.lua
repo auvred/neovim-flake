@@ -8,7 +8,7 @@ lspconfig.nixd.setup({
   capabilities = capabilities,
 })
 
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
   cmd = { nix_generated.typescript_language_server_path, "--stdio" },
   on_attach = function(client, bufnr)
     require("twoslash-queries").attach(client, bufnr)
