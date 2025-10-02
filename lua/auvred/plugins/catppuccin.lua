@@ -5,11 +5,9 @@ require("catppuccin").setup({
     transparent = true,
   },
   show_end_of_buffer = true,
-  integrations = {
-    native_lsp = {
-      underlines = {
-        errors = { "undercurl" },
-      },
+  lsp_styles = {
+    underlines = {
+      errors = { "undercurl" },
     },
   },
 })
