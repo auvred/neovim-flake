@@ -1,8 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
-    # TODO: remove once lspconfig works with vue_ls + ts_ls
-    nixpkgs-latest.url = "github:nixos/nixpkgs/b6b47963d86aca847fe9754627b1f20f5fd0181d";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
@@ -14,15 +12,11 @@
   outputs = {
     self,
     nixpkgs,
-    nixpkgs-latest,
     neovim-nightly-overlay,
     treefmt-nix,
     twoslash-queries-nvim-source,
   }: let
     system = "x86_64-linux";
-    pkgsLatest = import nixpkgs-latest {
-      inherit system;
-    };
     pkgs = import nixpkgs {
       inherit system;
       overlays = [
@@ -32,9 +26,6 @@
             (import ./overlays/cmp-buffer)
             (import ./overlays/cmp-nvim-lsp)
             (import ./overlays/cmp-path)
-            (final: prev: {
-              nvim-lspconfig = pkgsLatest.vimPlugins.nvim-lspconfig;
-            })
           ];
         })
       ];
