@@ -8,6 +8,17 @@ cmp.setup({
   }, {
     { name = "buffer" },
   }),
+  completion = {
+    autocomplete = false,
+  },
+  window = {
+    completion = {
+      border = "rounded",
+    },
+    documentation = {
+      border = "rounded",
+    },
+  },
   mapping = {
     ["<C-n>"] = cmp.mapping(function()
       if cmp.visible() then

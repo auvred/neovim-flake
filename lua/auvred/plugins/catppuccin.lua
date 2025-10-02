@@ -1,14 +1,17 @@
 require("catppuccin").setup({
   flavour = "mocha",
   transparent_background = true,
+  float = {
+    transparent = true,
+  },
   show_end_of_buffer = true,
-  custom_highlights = function(colors)
-    local U = require("catppuccin.utils.colors")
-    return {
-      Pmenu = { bg = U.darken(colors.surface0, 0.5, colors.crust) },
-      NormalFloat = { bg = U.darken(colors.surface0, 0.5, colors.crust) },
-    }
-  end,
+  integrations = {
+    native_lsp = {
+      underlines = {
+        errors = { "undercurl" },
+      },
+    },
+  },
 })
 
 vim.cmd("colorscheme catppuccin")

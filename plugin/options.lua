@@ -1,6 +1,7 @@
 vim.opt.softtabstop = 2
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
+vim.opt.tabstop = 2
 
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
@@ -13,3 +14,6 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 vim.opt.inccommand = "split"
+
+-- https://github.com/nodejs/node/issues/22517
+vim.opt.writebackup = false

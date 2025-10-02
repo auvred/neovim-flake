@@ -1,6 +1,8 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixpkgs-unstable";
+    # TODO: remove once lspconfig works with vue_ls + ts_ls
+    nixpkgs-latest.url = "github:nixos/nixpkgs/b6b47963d86aca847fe9754627b1f20f5fd0181d";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     treefmt-nix.url = "github:numtide/treefmt-nix";
 
@@ -12,11 +14,15 @@
   outputs = {
     self,
     nixpkgs,
+    nixpkgs-latest,
     neovim-nightly-overlay,
     treefmt-nix,
     twoslash-queries-nvim-source,
   }: let
     system = "x86_64-linux";
+    pkgsLatest = import nixpkgs-latest {
+      inherit system;
+    };
     pkgs = import nixpkgs {
       inherit system;
       overlays = [
@@ -26,6 +32,9 @@
             (import ./overlays/cmp-buffer)
             (import ./overlays/cmp-nvim-lsp)
             (import ./overlays/cmp-path)
+            (final: prev: {
+              nvim-lspconfig = pkgsLatest.vimPlugins.nvim-lspconfig;
+            })
           ];
         })
       ];
@@ -45,9 +54,11 @@
           local M = {
             nixd_server_path = "${pkgs.nixd}/bin/nixd",
             typescript_language_server_path = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server",
-            vue_typescript_plugin_path = "${pkgs.vue-language-server}/lib/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
+            vue_typescript_plugin_path = "${pkgs.vue-language-server}/lib/language-tools/packages/language-server",
             vue_language_server_path = "${pkgs.vue-language-server}/bin/vue-language-server",
             clangd_server_path = "${pkgs.clang-tools}/bin/clangd",
+            jsonnet_server_path = "${pkgs.jsonnet-language-server}/bin/jsonnet-language-server",
+            gopls_server_path = "${pkgs.gopls}/bin/gopls",
           }
           return M
           EOF
@@ -71,9 +82,15 @@
             telescope-nvim
             comment-nvim
             nvim-lspconfig
-            (nvim-cmp.overrideAttrs {dependencies = [cmp-nvim-lsp cmp-buffer cmp-path];})
+
+            (cmp-buffer.overrideAttrs {checkInputs = [nvim-cmp];})
+            cmp-nvim-lsp
+            cmp-path
+            nvim-cmp
+
             (oil-nvim.overrideAttrs {dependencies = [nvim-web-devicons];})
             harpoon2
+            leap-nvim
           ])
           ++ builtins.filter pkgs.lib.isDerivation (builtins.attrValues pkgs.vimPlugins.nvim-treesitter-parsers));
       initLua = pkgs.writeTextDir "auvred-nvim-config-init.lua" (
@@ -85,6 +102,11 @@
       makeWrapperArgs = [
         "${neovim-unwrapped}/bin/nvim"
         "${placeholder "out"}/bin/nvim"
+        # https://github.com/neovim/nvim-lspconfig/blob/f98fa715acc975c2dd5fb5ba7ceddeb1cc725ad2/lua/lspconfig/configs/gopls.lua#L12
+        "--prefix"
+        "PATH"
+        ":"
+        (pkgs.lib.makeBinPath [pkgs.go])
         "--add-flags"
         "-u ${initLua}/auvred-nvim-config-init.lua"
       ];
