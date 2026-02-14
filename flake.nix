@@ -94,7 +94,7 @@
         "${neovim-unwrapped}/bin/nvim"
         "${placeholder "out"}/bin/nvim"
         # https://github.com/neovim/nvim-lspconfig/blob/f98fa715acc975c2dd5fb5ba7ceddeb1cc725ad2/lua/lspconfig/configs/gopls.lua#L12
-        "--prefix"
+        "--suffix"
         "PATH"
         ":"
         (pkgs.lib.makeBinPath [pkgs.go])
