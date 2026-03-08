@@ -68,7 +68,7 @@
           ]
           ++ (with pkgs.vimPlugins; [
             catppuccin-nvim
-            nvim-treesitter
+            nvim-treesitter-legacy
             nvim-treesitter-context
             telescope-nvim
             comment-nvim
@@ -97,7 +97,7 @@
         "--suffix"
         "PATH"
         ":"
-        (pkgs.lib.makeBinPath [pkgs.go])
+        (pkgs.lib.makeBinPath [pkgs.go_1_26])
         "--add-flags"
         "-u ${initLua}/auvred-nvim-config-init.lua"
       ];

@@ -1,4 +1,6 @@
-require("catppuccin").setup({
+local catppuccin = require("catppuccin")
+
+catppuccin.setup({
   flavour = "mocha",
   transparent_background = true,
   float = {
@@ -13,3 +15,6 @@ require("catppuccin").setup({
 })
 
 vim.cmd("colorscheme catppuccin")
+
+catppuccin.load("mocha")
+
