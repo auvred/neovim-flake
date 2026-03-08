@@ -50,6 +50,7 @@
             clangd_server_path = "${pkgs.clang-tools}/bin/clangd",
             jsonnet_server_path = "${pkgs.jsonnet-language-server}/bin/jsonnet-language-server",
             gopls_server_path = "${pkgs.gopls}/bin/gopls",
+            rust_analyzer_server_path = "${pkgs.rust-analyzer}/bin/rust-analyzer",
           }
           return M
           EOF

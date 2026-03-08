@@ -56,6 +56,11 @@ vim.lsp.config('gopls', {
 })
 vim.lsp.enable('gopls')
 
+vim.lsp.config('rust_analyzer', {
+  cmd = { nix_generated.rust_analyzer_server_path },
+})
+vim.lsp.enable('rust_analyzer')
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local opts = { buffer = ev.buf }
