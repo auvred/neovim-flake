@@ -44,7 +44,7 @@
           cat << EOF > $out/lua/auvred/nix-generated.lua
           local M = {
             nixd_server_path = "${pkgs.nixd}/bin/nixd",
-            typescript_language_server_path = "${pkgs.nodePackages.typescript-language-server}/bin/typescript-language-server",
+            typescript_language_server_path = "${pkgs.typescript-language-server}/bin/typescript-language-server",
             vue_typescript_plugin_path = "${pkgs.vue-language-server}/lib/language-tools/packages/language-server",
             vue_language_server_path = "${pkgs.vue-language-server}/bin/vue-language-server",
             clangd_server_path = "${pkgs.clang-tools}/bin/clangd",
