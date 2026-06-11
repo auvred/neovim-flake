@@ -61,6 +61,16 @@ vim.lsp.config('rust_analyzer', {
 })
 vim.lsp.enable('rust_analyzer')
 
+vim.lsp.config('kotlin_lsp', {
+  cmd = { nix_generated.kotlin_lsp_server_path, "--stdio" },
+})
+vim.lsp.enable('kotlin_lsp')
+
+vim.lsp.config('jdtls', {
+  cmd = { nix_generated.jdt_language_server_path },
+})
+vim.lsp.enable('jdtls')
+
 vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(ev)
     local opts = { buffer = ev.buf }

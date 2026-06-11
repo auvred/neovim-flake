@@ -21,6 +21,7 @@
       inherit system;
       overlays = [
         neovim-nightly-overlay.overlays.default
+        (import ./overlays/kotlin-lsp)
         (final: prev: {
           vimPlugins = (prev.lib.foldr (a: b: b.extend a) prev.vimPlugins) [
             (import ./overlays/cmp-buffer)
@@ -51,6 +52,9 @@
             jsonnet_server_path = "${pkgs.jsonnet-language-server}/bin/jsonnet-language-server",
             gopls_server_path = "${pkgs.gopls}/bin/gopls",
             rust_analyzer_server_path = "${pkgs.rust-analyzer}/bin/rust-analyzer",
+            kotlin_lsp_server_path = "${pkgs.kotlin-lsp}/bin/kotlin-lsp",
+            java_language_server_path = "${pkgs.java-language-server}/bin/java-language-server",
+            jdt_language_server_path = "${pkgs.jdt-language-server}/bin/jdtls",
           }
           return M
           EOF
@@ -69,7 +73,7 @@
           ]
           ++ (with pkgs.vimPlugins; [
             catppuccin-nvim
-            nvim-treesitter-legacy
+            nvim-treesitter.withAllGrammars
             nvim-treesitter-context
             telescope-nvim
             comment-nvim
@@ -83,8 +87,8 @@
             (oil-nvim.overrideAttrs {dependencies = [nvim-web-devicons];})
             harpoon2
             leap-nvim
-          ])
-          ++ builtins.filter pkgs.lib.isDerivation (builtins.attrValues pkgs.vimPlugins.nvim-treesitter-parsers));
+          ]));
+          # ++ builtins.filter pkgs.lib.isDerivation (builtins.attrValues pkgs.vimPlugins.nvim-treesitter-parsers));
       initLua = pkgs.writeTextDir "auvred-nvim-config-init.lua" (
         builtins.concatStringsSep "\n" (builtins.map (p: "vim.opt.rtp:append('${p}')") runtimepath)
         + ''
