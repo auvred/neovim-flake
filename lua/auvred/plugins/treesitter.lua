@@ -1,7 +1,10 @@
 vim.api.nvim_create_autocmd('FileType', { 
   callback = function() 
-    vim.treesitter.start()
-    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" 
+    -- don't crash on oil:// files
+    local ok = pcall(vim.treesitter.start)
+    if ok then
+      vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()" 
+    end
   end, 
 }) 
 require("treesitter-context").setup({
